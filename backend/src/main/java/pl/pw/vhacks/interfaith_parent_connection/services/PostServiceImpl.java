@@ -39,7 +39,7 @@ public class PostServiceImpl implements PostService {
         post.setRate(0L);
 
         postRepository.save(post);
-        solrPostRepository.save(postDto);
+        solrPostRepository.save(post);
     }
 
     @Override
@@ -49,17 +49,24 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getPostsBySearch(String text) {
-        return solrPostRepository.findByTextOrByTopic(text);
+        List<Post> posts = solrPostRepository.findByTextOrTopic(text, text);
+        if (posts != null) {
+            return posts
+                    .stream()
+                    .map(PostDto::mapFromPost)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
 
     @Override
     public List<String> getPostHint(String text) {
-        List<PostDto> posts = solrPostRepository.findByText(text);
+        List<Post> posts = solrPostRepository.findByText(text);
         if (posts != null) {
             return posts
                     .stream()
-                    .map(PostDto::getText)
+                    .map(Post::getText)
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();

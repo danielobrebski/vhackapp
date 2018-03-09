@@ -3,6 +3,8 @@ package pl.pw.vhacks.interfaith_parent_connection.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.data.solr.core.mapping.SolrDocument;
 import org.springframework.web.multipart.MultipartFile;
 import pl.pw.vhacks.users.User;
 import pl.pw.vhacks.utils.Media;
@@ -20,6 +22,7 @@ import java.util.List;
 
 @Data
 @Entity
+@SolrDocument(solrCoreName = "post")
 public class Post {
 
     @Id
@@ -28,7 +31,9 @@ public class Post {
     private Long id;
     @ManyToOne
     private User user;
+    @Indexed(name = "topic", type = "string")
     private String topic;
+    @Indexed(name = "text", type = "string")
     private String text;
     private Long rate;
 
