@@ -1,7 +1,13 @@
-<p>
-  search works!
-</p>
 
 <div class="topnav">
-  <input type="text" placeholder="Search..">
+  <input matInput type="text" placeholder="Search.." #searchBox [matAutocomplete]="auto" (keyup)="search(searchBox.value)">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let term of terms$ | async" (onSelectionChange)= "getPosts(term)">
+      <span>{{term }}</span>
+    </mat-option>
+  </mat-autocomplete>
+  {{term}}
+  <p></p>
+  <app-post-card *ngFor="let post of posts" [post]="post">
+  </app-post-card>
 </div>
