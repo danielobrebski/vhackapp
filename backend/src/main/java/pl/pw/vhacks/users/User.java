@@ -23,6 +23,9 @@ public class User implements Serializable {
     private String password;
 
     @OneToOne
+    private Country country;
+
+    @OneToOne
     private Faith faith;
 
 }

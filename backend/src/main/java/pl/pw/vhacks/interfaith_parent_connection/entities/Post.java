@@ -11,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,8 +25,12 @@ public class Post implements Serializable {
     private Long id;
     @ManyToOne
     private User user;
+    private String topic;
     private String text;
     private Long rate;
+
+    @OneToMany
+    private List<Comment> comments;
 
     @Transient
     private MultipartFile additionalFile;
