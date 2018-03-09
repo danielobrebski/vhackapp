@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Transient;
 import org.springframework.web.multipart.MultipartFile;
 import pl.pw.vhacks.users.User;
+import pl.pw.vhacks.utils.Media;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,12 +13,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Entity
-public class Post implements Serializable {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,6 +35,6 @@ public class Post implements Serializable {
     @OneToMany
     private List<Comment> comments;
 
-    @Transient
-    private MultipartFile additionalFile;
+    @OneToOne
+    private Media mediaFile;
 }

@@ -3,6 +3,7 @@ package pl.pw.vhacks.interfaith_parent_connection.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import pl.pw.vhacks.users.User;
+import pl.pw.vhacks.utils.Media;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-public class Comment implements Serializable {
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,4 +29,9 @@ public class Comment implements Serializable {
     private User user;
 
     private String text;
+
+    private Long rate;
+
+    @OneToOne
+    private Media media;
 }

@@ -17,7 +17,7 @@ public interface PostService {
 
     List<PostDto> getPostsBySearch(String text);
 
-    String getPostHint(String text);
+    List<String> getPostHint(String text);
 
     List<PostDto> getMostCommonPosts();
 

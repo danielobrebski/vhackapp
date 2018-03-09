@@ -1,21 +1,21 @@
-package pl.pw.vhacks.users;
+package pl.pw.vhacks.utils;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.Lob;
 
 @Data
 @Entity
-public class Country implements Serializable {
+public class Media {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private Long id;
-    private String name;
+
+    @Lob
+    private byte[] mediaFile;
 }

@@ -2,6 +2,9 @@ package pl.pw.vhacks.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
+import org.springframework.web.multipart.MultipartFile;
+import pl.pw.vhacks.utils.Media;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,5 +30,8 @@ public class User implements Serializable {
 
     @OneToOne
     private Faith faith;
+
+    @OneToOne
+    private Media media;
 
 }

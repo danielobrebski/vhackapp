@@ -5,4 +5,5 @@ import pl.pw.vhacks.users.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     User findUserById(Long userId);
+    User findUserByLogin(String login);
 }

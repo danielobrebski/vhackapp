@@ -7,11 +7,11 @@ import pl.pw.vhacks.interfaith_parent_connection.dtos.PostDto;
 import pl.pw.vhacks.interfaith_parent_connection.entities.Post;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.PostRepository;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.SolrPostRepository;
-import pl.pw.vhacks.users.User;
 import pl.pw.vhacks.users.services.UserService;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private static final int MAX_SIZE = 5;
+
     @Resource
     private final PostRepository postRepository;
 
@@ -34,7 +35,7 @@ public class PostServiceImpl implements PostService {
         Post post = new Post();
         post.setTopic(postDto.getTopic());
         post.setText(postDto.getText());
-        post.setUser(userService.getUser(postDto.getUserId()));
+        post.setUser(userService.getUserById(postDto.getUserId()));
         post.setRate(0L);
 
         postRepository.save(post);
@@ -51,9 +52,17 @@ public class PostServiceImpl implements PostService {
         return solrPostRepository.findByTextOrByTopic(text);
     }
 
+
     @Override
-    public String getPostHint(String text) {
-        return null;
+    public List<String> getPostHint(String text) {
+        List<PostDto> posts = solrPostRepository.findByText(text);
+        if (posts != null) {
+            return posts
+                    .stream()
+                    .map(PostDto::getText)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
     @Override

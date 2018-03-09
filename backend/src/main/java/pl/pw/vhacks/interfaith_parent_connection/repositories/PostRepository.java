@@ -13,6 +13,9 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<Post, Long> {
     Post getPostById(Long postId);
 
-    @Query("select p from post order by rate desc")
+    @Query("select p from Post p order by rate desc")
     List<Post> getMostPopularComments();
+
+    @Query("select p from Post p")
+    List<Post> getMostPopularCommentByCountry();
 }

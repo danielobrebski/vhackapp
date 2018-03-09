@@ -37,7 +37,7 @@ class PostCommentController {
     }
 
     @RequestMapping(value = "/post/hint", method = RequestMethod.GET)
-    String getPostHints(@RequestParam String hint) {
+    List<String> getPostHints(@RequestParam String hint) {
         return postService.getPostHint(hint);
     }
 
