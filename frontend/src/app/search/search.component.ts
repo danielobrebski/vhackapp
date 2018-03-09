@@ -13,7 +13,7 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 export class SearchComponent implements OnInit {
 
   constructor(private postService: PostService) { }
-
+  photo = '../../assets/backgroundsearch.jpg';
   posts: Post[];
   term: string;
   terms$: Observable<string[]>;

@@ -6,9 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./hello-page.component.css']
 })
 export class HelloPageComponent implements OnInit {
-
-  desc = 'Connecting people app';
-
+  photo = '../../assets/backgroundHome.jpg'
   navLinks = [
     {label: 'Events', path: '/events'},
     {label: 'Search', path: '/search'},
@@ -19,6 +17,7 @@ export class HelloPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    document.body.classList.add('bg-img');
   }
 
 }

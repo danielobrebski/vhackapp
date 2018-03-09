@@ -17,6 +17,7 @@ export class PostDetailComponent implements OnInit {
 
   post: Post;
   answers: Answer[];
+  photo = '../../assets/backgroundsearch.jpg';
 
   ngOnInit(): void {
     this.getPost();

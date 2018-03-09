@@ -1,12 +1,10 @@
-<h2>
-  {{desc}}
-</h2>
-<nav mat-tab-nav-bar>
-  <button mat-raised-button color="primary"
-     *ngFor="let link of navLinks"
-     [routerLink]="link.path"
-     routerLinkActive #rla="routerLinkActive">
+<img src="assets/navbarHello.PNG"  />
+
+<div class="hello" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
+  <button
+          *ngFor="let link of navLinks"
+          [routerLink]="link.path"
+          routerLinkActive #rla="routerLinkActive">
     {{link.label}}
   </button>
-</nav>
-<img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+</div>
