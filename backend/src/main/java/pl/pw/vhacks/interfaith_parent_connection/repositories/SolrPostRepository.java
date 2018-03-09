@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface SolrPostRepository extends SolrCrudRepository<PostDto, String> {
-    List<PostDto> findByText(String text);
+    List<PostDto> findByTextOrByTopic(String text);
 }

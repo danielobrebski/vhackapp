@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getPostsBySearch(String text) {
-        return null;
+        return solrPostRepository.findByTextOrByTopic(text);
     }
 
     @Override
