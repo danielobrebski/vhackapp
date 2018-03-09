@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.pw.vhacks.interfaith_parent_connection.dtos.PostDto;
+import pl.pw.vhacks.interfaith_parent_connection.dtos.RatePostDto;
 import pl.pw.vhacks.interfaith_parent_connection.entities.Post;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.PostRepository;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.SolrPostRepository;
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
         post.setRate(0L);
 
         postRepository.save(post);
-        solrPostRepository.save(postDto);
+        solrPostRepository.save(post);
     }
 
     @Override
@@ -49,17 +50,25 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getPostsBySearch(String text) {
-        return solrPostRepository.findByTextOrByTopic(text);
+        List<Post> posts = solrPostRepository.queryByTextOrTopic(text, text);
+        if (posts != null) {
+            return posts
+                    .stream()
+                    .map(PostDto::mapFromPost)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 
 
     @Override
     public List<String> getPostHint(String text) {
-        List<PostDto> posts = solrPostRepository.findByText(text);
+        List<Post> posts = solrPostRepository.queryByText(text);
         if (posts != null) {
             return posts
                     .stream()
-                    .map(PostDto::getText)
+                    .map(Post::getText)
+                    .limit(MAX_SIZE)
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();
@@ -77,5 +86,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getMostCommonPostsByCountry() {
         return null;
+    }
+
+    @Transactional
+    @Override
+    public void votePost(RatePostDto ratePostDto) {
+        Post post = postRepository.getPostById(ratePostDto.getPostId());
+        post.setRate(ratePostDto.getPositiveRate() ? post.getRate() + 1 : post.getRate() - 1);
     }
 }

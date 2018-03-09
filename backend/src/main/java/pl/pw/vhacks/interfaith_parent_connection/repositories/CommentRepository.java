@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends CrudRepository<Comment, Long> {
+    Comment getCommentById(Long id);
     List<Comment> getCommentsByPost(Post post);
 }
