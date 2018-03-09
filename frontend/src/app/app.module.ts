@@ -5,7 +5,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HelloPageComponent} from './hello-page/hello-page.component';
 import {AppRoutingModule} from './/app-routing.module';
-import {MatToolbarModule} from '@angular/material';
+import {MatToolbarModule, MatButtonModule} from '@angular/material';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import {MatToolbarModule} from '@angular/material';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
