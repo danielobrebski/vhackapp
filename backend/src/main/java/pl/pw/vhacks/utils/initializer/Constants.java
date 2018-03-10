@@ -29,7 +29,7 @@ public class Constants {
     public static final String answer6 = "When we will be in the heaven, we will not need food, as there will not be hunger. Maybe we will eat for common celebration and the glory of the God. However, no person will have to prepare the food as here on earth, and we will not have to buy the food. In heaven, we will not lack anything, so no worries - you will be really happy.";
 
     public static final String question7 = "What is the most important thing in your faith?";
-    public static final String answer7_path1 = "/home/dobrebski/work/vhackapp/backend/src/main/resources/movie1.mp4";
-    public static final String answer7_path2 = "/home/dobrebski/work/vhackapp/backend/src/main/resources/movie2.mp4";
+    public static final String answer7_path1 = "src/main/resources/movie1.mp4";
+    public static final String answer7_path2 = "src/main/resources/movie2.mp4";
 
 }
