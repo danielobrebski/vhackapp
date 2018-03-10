@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.pw.vhacks.users.User;
 import pl.pw.vhacks.users.dtos.UserDto;
 import pl.pw.vhacks.users.services.UserService;
 
@@ -14,9 +15,10 @@ class UserController {
 
     private final UserService userService;
 
-    @RequestMapping(value = "/user/", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     UserDto getUser(@RequestParam String login) {
-        return UserDto.mapFromUser(userService.getUserByLogin(login));
+        User user = userService.getUserByLogin(login);
+        return user != null ? UserDto.mapFromUser(user) : null;
     }
 
 }

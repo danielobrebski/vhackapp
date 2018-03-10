@@ -9,11 +9,8 @@ import java.io.Serializable;
 public class PostDto implements Serializable {
 
     private String topic;
-
     private String text;
-
     private Long userId;
-
     private Long mediaId;
 
     public static PostDto mapFromPost(Post post) {
@@ -21,6 +18,7 @@ public class PostDto implements Serializable {
         postDto.setUserId(post.getUser().getId());
         postDto.setText(post.getText());
         postDto.setTopic(post.getTopic());
+        postDto.setMediaId(post.getMediaFile() != null ? post.getMediaFile().getId() : null);
         return postDto;
     }
 }

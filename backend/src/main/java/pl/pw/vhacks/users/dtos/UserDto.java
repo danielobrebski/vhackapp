@@ -14,8 +14,9 @@ public class UserDto implements Serializable {
 
     public static UserDto mapFromUser(User user) {
         UserDto userDto = new UserDto();
+        userDto.setUserId(user.getId());
         userDto.setLogin(user.getLogin());
-        userDto.setMediaId(user.getMedia().getId());
+        userDto.setMediaId(user.getMedia() != null ? user.getMedia().getId() : null);
         userDto.setName(user.getName());
         return userDto;
     }
