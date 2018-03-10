@@ -64,3 +64,9 @@
   float: left;
 
 }
+
+example-card2 {
+  width: 80%;
+  float: right;
+  border-radius: 25px;
+}

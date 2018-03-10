@@ -8,9 +8,9 @@ export class ChartDataService {
   }
 
   get () {
-    return of([{label: 'Question 1', data: 30},
-      {label: 'Question 2', data: 50},
-      {label: 'Question 3', data: 20}]);
+    return of([{label: 'Why don\'t all my friends go to our church?', data: 30},
+      {label: 'What is the most important thing in your faith?', data: 50},
+      {label: 'Is there a McDonald\'s in heaven?', data: 20}]);
   }
 
 }

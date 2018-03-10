@@ -25,5 +25,11 @@ export class UserService {
     return this.http.get<User>(`${this.postUrl}?login=Daniel_login`);
   };
 
+  getUser2(id: number): Observable<User> {
+
+    // return this.http.get<Post[]>(`${this.postUrl}/${title}`);
+    return this.http.get<User>(`${this.postUrl}?login=Maja_login`);
+  };
+
 
 }

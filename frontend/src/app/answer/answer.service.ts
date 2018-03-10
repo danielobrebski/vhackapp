@@ -26,7 +26,7 @@ export class AnswerService {
 
   private fetchUser(posts, subject) {
     const result = [];
-    posts.forEach(post => this.userService.getUser(post.userId)
+    posts.forEach(post => this.userService.getUser2(post.userId)
       .subscribe(user => {
         post.user = user;
         result.push(post);
