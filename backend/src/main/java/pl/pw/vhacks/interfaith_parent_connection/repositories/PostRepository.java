@@ -13,6 +13,8 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<Post, Long> {
     Post getPostById(Long postId);
 
+    Post getPostByTopic(String topic);
+
     @Query("select p from Post p order by rate desc")
     List<Post> getMostPopularComments();
 

@@ -13,7 +13,8 @@ public class Texts {
             "Christians. Different Christian churches have a bit different way of baptising, but in common, putting the water is a symbol of cleaning the children from the original sin of Adam, the first man. It is a sign that a child becomes a member of the church. It may be a bit scary and cold for the baby, but they do care to make it safely and quickly, so the baby does not suffer much.";
 
     public static String question3 = "Why don't all my friends go to our church?";
-    public static String anwser3 = "We go to our church because we are Christians and here we can meet with God Father and Jesus. But the people have different faiths, and they do believe in God in a bit different way. So if your friends are Muslims, they go to a mosque, if they are Jews then they attend sinagogue, if Buddhist - a Buddhist temple. All these buildings are places where people meet with each other and with the God to praise him. They simply do it in different ways. There are also some people who do not believe that the God exists - and so they do not go to any church or temple.";
+    public static String answer3 = "We go to our church because we are Christians and here we can meet with God " +
+            "Father and Jesus. But the people have different faiths, and they do believe in God in a bit different way. So if your friends are Muslims, they go to a mosque, if they are Jews then they attend sinagogue, if Buddhist - a Buddhist temple. All these buildings are places where people meet with each other and with the God to praise him. They simply do it in different ways. There are also some people who do not believe that the God exists - and so they do not go to any church or temple.";
 
 
     public static String question4 = "Why [Muslim name] always refuses when I give him a burger?";

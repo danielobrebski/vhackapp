@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.pw.vhacks.users.User;
 import pl.pw.vhacks.utils.Media;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,12 +30,18 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private Long id;
+
     @ManyToOne
     private User user;
+
     @Indexed(name = "topic", type = "string")
+    @Column(length = 2000)
     private String topic;
+
     @Indexed(name = "text", type = "string")
+    @Column(length = 2000)
     private String text;
+
     private Long rate;
 
     @OneToMany

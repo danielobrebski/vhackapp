@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Data
 public class PostDto implements Serializable {
 
+    private Long postId;
     private String topic;
     private String text;
     private Long userId;
@@ -15,6 +16,7 @@ public class PostDto implements Serializable {
 
     public static PostDto mapFromPost(Post post) {
         PostDto postDto = new PostDto();
+        postDto.setPostId(post.getId());
         postDto.setUserId(post.getUser().getId());
         postDto.setText(post.getText());
         postDto.setTopic(post.getTopic());

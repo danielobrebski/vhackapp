@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 @Data
 public class CommentDto implements Serializable {
+
+    private Long commentId;
     private String text;
     private Long userId;
     private Long postId;
@@ -14,6 +16,7 @@ public class CommentDto implements Serializable {
 
     public static CommentDto mapFromComment(Comment comment) {
         CommentDto commentDto = new CommentDto();
+        commentDto.setCommentId(comment.getId());
         commentDto.setUserId(comment.getUser().getId());
         commentDto.setText(comment.getText());
         commentDto.setPostId(comment.getPost().getId());
