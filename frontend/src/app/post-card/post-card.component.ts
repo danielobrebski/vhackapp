@@ -15,7 +15,7 @@ export class PostCardComponent implements OnInit {
   }
 
   goPostDetails() {
-    this.router.navigate(['/post-detail/' + this.post.id]);
+    this.router.navigate(['/post-detail/' + this.post.postId]);
   }
 
 }

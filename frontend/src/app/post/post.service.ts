@@ -12,7 +12,7 @@ export class PostService {
   constructor(private http: HttpClient, private  userService: UserService) {
   }
 
-  private postUrl = 'api/post';  // URL to web api
+  private postUrl = '/api/post';  // URL to web api
 
   private listSubject = new BehaviorSubject<Post[]>([]);
   private listObs = this.listSubject.asObservable();
@@ -26,10 +26,7 @@ export class PostService {
   };
 
   getPostsByTitle(title: string): Observable<Post[]> {
-    // return this.http.get<Post[]>(`${this.postUrl}/${title}`);
-    of([new Post(0, 1, 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\n' +
-      '      A small, agile dog that copes very well with mountainous terrain', 3, 4)])
-      .subscribe(posts => {
+    this.http.get<Post[]>(`${this.postUrl}/getMostCommonPosts`).subscribe(posts => {
         this.fetchUser(posts, this.listSubject);
       });
     return this.listObs;
@@ -45,9 +42,7 @@ export class PostService {
   }
 
   getPostById(id: number): Observable<Post> {
-    // return this.http.get<Post[]>(`${this.postUrl}/${id}`);
-    of(new Post(0, 1, 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\n' +
-      '      A small, agile dog that copes very well with mountainous terrain', 3, 4))
+    this.http.get<Post>(`${this.postUrl}/${id}`)
       .subscribe(post => this.userService.getUser(post.userId)
         .subscribe(user => {
           post.user = user;
