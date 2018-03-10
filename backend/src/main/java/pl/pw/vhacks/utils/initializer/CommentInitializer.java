@@ -1,6 +1,7 @@
 package pl.pw.vhacks.utils.initializer;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -11,8 +12,14 @@ import pl.pw.vhacks.interfaith_parent_connection.repositories.CommentRepository;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.PostRepository;
 import pl.pw.vhacks.users.User;
 import pl.pw.vhacks.users.repositories.UserRepository;
+import pl.pw.vhacks.utils.Media;
+import pl.pw.vhacks.utils.repositories.MediaRepository;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 @RequiredArgsConstructor
@@ -29,22 +36,28 @@ public class CommentInitializer implements ApplicationRunner {
     @Resource
     private final UserRepository userRepository;
 
+    @Resource
+    private final MediaRepository mediaRepository;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        addComment(Texts.answer1, Texts.question1);
-        addComment(Texts.answer2, Texts.question2);
-        addComment(Texts.answer3, Texts.question3);
-        addComment(Texts.answer4, Texts.question4);
-        addComment(Texts.answer5, Texts.question5);
-        addComment(Texts.answer6, Texts.question6);
+        addComment(Constants.answer1, Constants.question1, null);
+        addComment(Constants.answer2, Constants.question2, null);
+        addComment(Constants.answer3, Constants.question3, null);
+        addComment(Constants.answer4, Constants.question4, null);
+        addComment(Constants.answer5, Constants.question5, null);
+        addComment(Constants.answer6, Constants.question6, null);
+        addComment(null, Constants.question7, Constants.answer7_path1);
+        addComment(null, Constants.question7, Constants.answer7_path2);
     }
 
-    private void addComment(String text, String topic) {
+    private void addComment(String text, String topic, String mediaPath) throws IOException {
         Comment comment = new Comment();
         comment.setUser(getUser());
         comment.setPost(getPost(topic));
         comment.setText(text);
         comment.setRate(new Random().nextLong() % 20);
+        comment.setMedia(createMedia(mediaPath));
         commentRepository.save(comment);
     }
 
@@ -54,5 +67,13 @@ public class CommentInitializer implements ApplicationRunner {
 
     private Post getPost(String topic) {
         return postRepository.getPostByTopic(topic);
+    }
+
+    private Media createMedia(String mediaPath) throws IOException {
+        Media media = new Media();
+        Path path = Paths.get(mediaPath);
+        media.setMediaFile(Files.readAllBytes(path));
+        mediaRepository.save(media);
+        return media;
     }
 }

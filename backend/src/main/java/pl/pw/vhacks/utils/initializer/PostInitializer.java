@@ -31,12 +31,13 @@ public class PostInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        addPost(Texts.question1, null);
-        addPost(Texts.question2, null);
-        addPost(Texts.question3, null);
-        addPost(Texts.question4, null);
-        addPost(Texts.question5, null);
-        addPost(Texts.question6, null);
+        addPost(Constants.question1, null);
+        addPost(Constants.question2, null);
+        addPost(Constants.question3, null);
+        addPost(Constants.question4, null);
+        addPost(Constants.question5, null);
+        addPost(Constants.question6, null);
+        addPost(Constants.question7, null);
     }
 
     private void addPost(String topic, String text) {
