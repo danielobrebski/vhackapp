@@ -1,7 +1,6 @@
 package pl.pw.vhacks.utils.initializer;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -57,7 +56,9 @@ public class CommentInitializer implements ApplicationRunner {
         comment.setPost(getPost(topic));
         comment.setText(text);
         comment.setRate(new Random().nextLong() % 20);
-        comment.setMedia(createMedia(mediaPath));
+        if (mediaPath != null) {
+            comment.setMedia(createMedia(mediaPath));
+        }
         commentRepository.save(comment);
     }
 
