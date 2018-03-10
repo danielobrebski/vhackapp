@@ -1,3 +1,19 @@
 .hello{
   height: 500px;
 }
+
+.klasa1 {
+  position: absolute;
+  left: 210px;
+  top: 110px;
+}
+.klasa2 {
+  position: absolute;
+  left: 210px;
+  top: 260px;
+}
+.klasa3 {
+  position: absolute;
+  left: 250px;
+  top: 400px;
+}

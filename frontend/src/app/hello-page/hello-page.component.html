@@ -1,10 +1,22 @@
-<img src="assets/navbarHello.PNG"  />
+<img src="assets/navbarHello.PNG"/>
 
 <div class="hello" [ngStyle]="{'background-image': 'url(' + photo + ')'}">
-  <button
-          *ngFor="let link of navLinks"
-          [routerLink]="link.path"
-          routerLinkActive #rla="routerLinkActive">
-    {{link.label}}
-  </button>
+
+
+  <div class="klasa1">
+    <button type=" submit" style="border: 0; background: transparent;" routerLink="/search" >
+      <img src="../../assets/Bottom1.png" alt="submit"/>
+    </button>
+  </div>
+  <div class="klasa2">
+    <button type=" submit" style="border: 0; background: transparent;" routerLink="/events">
+      <img src="../../assets/Bottom2.png" alt="submit"/>
+    </button>
+  </div>
+  <div class="klasa3">
+    <button type=" submit" style="border: 0; background: transparent" routerLink="/story-telling">
+      <img src="../../assets/Bottom3.png" alt="submit"/>
+    </button>
+  </div>
+
 </div>
