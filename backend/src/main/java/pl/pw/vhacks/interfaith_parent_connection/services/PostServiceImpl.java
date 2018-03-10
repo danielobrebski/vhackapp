@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.pw.vhacks.interfaith_parent_connection.dtos.PostDto;
 import pl.pw.vhacks.interfaith_parent_connection.dtos.RatePostDto;
 import pl.pw.vhacks.interfaith_parent_connection.entities.Post;
+import pl.pw.vhacks.interfaith_parent_connection.entities.SolrPost;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.PostRepository;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.SolrPostRepository;
 import pl.pw.vhacks.users.services.UserService;
@@ -31,7 +32,6 @@ public class PostServiceImpl implements PostService {
     private final UserService userService;
 
     @Override
-    @Transactional(rollbackOn = Exception.class)
     public void savePost(PostDto postDto, MultipartFile mpf) {
         Post post = new Post();
         post.setTopic(postDto.getTopic());
@@ -40,7 +40,11 @@ public class PostServiceImpl implements PostService {
         post.setRate(0L);
 
         postRepository.save(post);
-        solrPostRepository.save(post);
+        SolrPost solrPost = new SolrPost();
+        solrPost.setId(post.getId());
+        solrPost.setText(post.getText());
+        solrPost.setTopic(post.getTopic());
+        solrPostRepository.save(solrPost);
     }
 
     @Override
@@ -50,10 +54,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getPostsBySearch(String text) {
-        List<Post> posts = solrPostRepository.queryByTextOrTopic(text, text);
+        List<SolrPost> posts = solrPostRepository.queryByTextOrTopic(text, text);
         if (posts != null) {
             return posts
                     .stream()
+                    .map(post -> postRepository.getPostById(post.getId()))
                     .map(PostDto::mapFromPost)
                     .collect(Collectors.toList());
         }
@@ -63,10 +68,11 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<String> getPostHint(String text) {
-        List<Post> posts = solrPostRepository.queryByText(text);
+        List<SolrPost> posts = solrPostRepository.queryByText(text);
         if (posts != null) {
             return posts
                     .stream()
+                    .map(post -> postRepository.getPostById(post.getId()))
                     .map(Post::getText)
                     .limit(MAX_SIZE)
                     .collect(Collectors.toList());
@@ -79,7 +85,6 @@ public class PostServiceImpl implements PostService {
         return postRepository.getMostPopularComments()
                 .stream()
                 .map(PostDto::mapFromPost)
-                .limit(MAX_SIZE)
                 .collect(Collectors.toList());
     }
 
@@ -93,5 +98,10 @@ public class PostServiceImpl implements PostService {
     public void votePost(RatePostDto ratePostDto) {
         Post post = postRepository.getPostById(ratePostDto.getPostId());
         post.setRate(ratePostDto.getPositiveRate() ? post.getRate() + 1 : post.getRate() - 1);
+    }
+
+    @Override
+    public PostDto getPostById(Long postId) {
+        return PostDto.mapFromPost(postRepository.getPostById(postId));
     }
 }

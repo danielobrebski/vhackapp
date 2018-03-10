@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pl.pw.vhacks.interfaith_parent_connection.entities.Post;
+import pl.pw.vhacks.interfaith_parent_connection.entities.SolrPost;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.PostRepository;
 import pl.pw.vhacks.interfaith_parent_connection.repositories.SolrPostRepository;
 import pl.pw.vhacks.users.User;
@@ -45,7 +46,12 @@ public class PostInitializer implements ApplicationRunner {
         post.setText(text);
         post.setRate(new Random().nextLong() % 20);
         postRepository.save(post);
-        solrPostRepository.save(post);
+
+        SolrPost solrPost = new SolrPost();
+        solrPost.setId(post.getId());
+        solrPost.setText(post.getText());
+        solrPost.setTopic(post.getTopic());
+        solrPostRepository.save(solrPost);
     }
 
     private User getUser() {

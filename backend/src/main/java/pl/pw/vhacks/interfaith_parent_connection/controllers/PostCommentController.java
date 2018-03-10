@@ -31,6 +31,11 @@ class PostCommentController {
         return postService.getPostsBySearch(searchText);
     }
 
+    @RequestMapping(value = "/post/getPostById", method = RequestMethod.GET)
+    PostDto getPostById(@RequestParam Long postId) {
+        return postService.getPostById(postId);
+    }
+
     @RequestMapping(value = "/post/getMostCommonPosts", method = RequestMethod.GET)
     List<PostDto> getMostCommonPosts() {
         return postService.getMostCommonPosts();

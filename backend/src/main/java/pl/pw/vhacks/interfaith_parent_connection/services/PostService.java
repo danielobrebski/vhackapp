@@ -26,4 +26,6 @@ public interface PostService {
 
     @Transactional
     void votePost(RatePostDto ratePostDto);
+
+    PostDto getPostById(Long postId);
 }
