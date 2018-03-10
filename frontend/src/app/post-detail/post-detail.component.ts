@@ -13,7 +13,8 @@ import {Answer} from '../answer/answer';
 export class PostDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private postService: PostService,
-              private answerService: AnswerService) { }
+              private answerService: AnswerService) {
+  }
 
   post: Post;
   answers: Answer[];
@@ -27,12 +28,16 @@ export class PostDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.postService.getPostById(id)
       .subscribe(post => {
+        if (post == null) {
+          return;
+        }
         this.fetchAnswers(post);
         this.post = post;
       });
   }
 
   private fetchAnswers(post) {
-    this.answerService.getAnswersByPostId(post.id).subscribe(answers => this.answers = answers);
+    console.log(post);
+    this.answerService.getAnswersByPostId(post.postId).subscribe(answers => this.answers = answers);
   }
 }

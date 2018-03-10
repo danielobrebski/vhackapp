@@ -12,6 +12,7 @@ import {
   MatInputModule,
   MatToolbarModule
 } from '@angular/material';
+import {MatIconModule} from '@angular/material/icon';
 import {SearchComponent} from './search/search.component';
 import {PostService} from './post/post.service';
 import {HttpClientModule} from '@angular/common/http';
@@ -40,7 +41,8 @@ import {ChartDataService} from './charts/chart-data.service';
     MatInputModule,
     MatAutocompleteModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     PostService,

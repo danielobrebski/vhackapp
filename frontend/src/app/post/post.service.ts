@@ -26,7 +26,7 @@ export class PostService {
   };
 
   getPostsByTitle(title: string): Observable<Post[]> {
-    this.http.get<Post[]>(`${this.postUrl}/getMostCommonPosts`).subscribe(posts => {
+    this.http.get<Post[]>(`${this.postUrl}/getPostsBySearch?searchText=${title}`).subscribe(posts => {
         this.fetchUser(posts, this.listSubject);
       });
     return this.listObs;
@@ -42,7 +42,7 @@ export class PostService {
   }
 
   getPostById(id: number): Observable<Post> {
-    this.http.get<Post>(`${this.postUrl}/${id}`)
+    this.http.get<Post>(`${this.postUrl}/getPostById?postId=${id}`)
       .subscribe(post => this.userService.getUser(post.userId)
         .subscribe(user => {
           post.user = user;
@@ -56,8 +56,8 @@ export class PostService {
       // if not search term, return empty hero array.
       return of();
     }
-    // return this.http.get<Post[]>(`${this.postUrl}/${title}`);
-    return of(['XDDDD']);
+     return this.http.get<string[]>(`${this.postUrl}/hint?hint=${title}`);
+
   }
 
 }

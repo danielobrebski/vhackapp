@@ -5,6 +5,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../user/user.service';
 import {Answer} from './answer';
+import {Post} from '../post/post';
 
 @Injectable()
 export class AnswerService {
@@ -12,12 +13,13 @@ export class AnswerService {
   constructor(private http: HttpClient, private  userService: UserService) {
   }
 
+  private postUrl = '/api/comment/getPostComments';  // URL to web api
+
   getAnswersByPostId(id: number): Observable<Answer[]> {
     // return this.http.get<Post[]>(`${this.postUrl}/${title}`);
     const subject = new BehaviorSubject<Answer[]>(null);
     const obs = subject.asObservable();
-    of([new Answer(0, 1, 'The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.\n' +
-      '      A small, agile dog that copes very well with mountainous terrain')])
+    this.http.get<Answer[]>(`${this.postUrl}?postId=${id}`)
       .subscribe(answers => this.fetchUser(answers, subject));
     return obs;
   }
