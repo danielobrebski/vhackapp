@@ -19,6 +19,8 @@ import {PostCardComponent} from './post-card/post-card.component';
 import {PostDetailComponent} from './post-detail/post-detail.component';
 import {UserService} from './user/user.service';
 import {AnswerService} from './answer/answer.service';
+import { ChartsComponent } from './charts/charts.component';
+import {ChartDataService} from './charts/chart-data.service';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import {AnswerService} from './answer/answer.service';
     HelloPageComponent,
     SearchComponent,
     PostCardComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import {AnswerService} from './answer/answer.service';
   providers: [
     PostService,
     UserService,
-    AnswerService],
+    AnswerService,
+    ChartDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
