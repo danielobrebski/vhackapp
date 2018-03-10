@@ -38,11 +38,10 @@ public class PostServiceImpl implements PostService {
         post.setText(postDto.getText());
         post.setUser(userService.getUserById(postDto.getUserId()));
         post.setRate(0L);
-
         postRepository.save(post);
+
         SolrPost solrPost = new SolrPost();
         solrPost.setId(post.getId());
-        solrPost.setText(post.getText());
         solrPost.setTopic(post.getTopic());
         solrPostRepository.save(solrPost);
     }
@@ -54,7 +53,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDto> getPostsBySearch(String text) {
-        List<SolrPost> posts = solrPostRepository.queryByTextOrTopic(text, text);
+        List<SolrPost> posts = solrPostRepository.queryByTopic(text);
         if (posts != null) {
             return posts
                     .stream()
@@ -68,13 +67,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<String> getPostHint(String text) {
-        List<SolrPost> posts = solrPostRepository.queryByText(text);
+        List<SolrPost> posts = solrPostRepository.queryByTopic(text);
         if (posts != null) {
             return posts
                     .stream()
                     .map(post -> postRepository.getPostById(post.getId()))
-                    .map(Post::getText)
-                    .limit(MAX_SIZE)
+                    .map(Post::getTopic)
                     .collect(Collectors.toList());
         }
         return new ArrayList<>();

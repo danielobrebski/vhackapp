@@ -49,7 +49,6 @@ public class PostInitializer implements ApplicationRunner {
 
         SolrPost solrPost = new SolrPost();
         solrPost.setId(post.getId());
-        solrPost.setText(post.getText());
         solrPost.setTopic(post.getTopic());
         solrPostRepository.save(solrPost);
     }
